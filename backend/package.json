@@ -1,0 +1,16 @@
+{
+  "name": "celebratemate-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Google Apps Script backend for CelebrateMate (tests run locally with Node, no dependencies).",
+  "scripts": {
+    "test": "node --test tests/",
+    "sync:templates": "node scripts/sync-default-templates.mjs",
+    "clasp:push": "npx @google/clasp@2.4.2 push",
+    "clasp:deploy": "npx @google/clasp@2.4.2 deploy --description \"CelebrateMate API\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

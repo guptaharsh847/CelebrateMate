@@ -1,0 +1,168 @@
+import type { Category, Occasion } from '@/types';
+
+/**
+ * The 18 default message templates (3 categories × 2 occasions × 3 templates).
+ * These are product content, not dummy data: the backend seeds the Templates
+ * sheet with the same IDs and text (Phase 2). The mock service also uses them.
+ */
+export interface DefaultTemplate {
+  templateId: string;
+  category: Category;
+  occasion: Occasion;
+  name: string;
+  body: string;
+  sortOrder: number;
+}
+
+export const DEFAULT_TEMPLATES: DefaultTemplate[] = [
+  // ── DEVOTEE · BIRTHDAY ──────────────────────────────────────────────
+  {
+    templateId: 'TPL_DEVOTEE_BIRTHDAY_1',
+    category: 'DEVOTEE',
+    occasion: 'BIRTHDAY',
+    name: 'Divine blessings',
+    body: 'Hare Krishna {name} 🙏\n\nWishing you a very happy birthday! May the Lord shower His choicest blessings on you and fill your life with devotion, peace and joy.',
+    sortOrder: 1,
+  },
+  {
+    templateId: 'TPL_DEVOTEE_BIRTHDAY_2',
+    category: 'DEVOTEE',
+    occasion: 'BIRTHDAY',
+    name: 'Spiritual growth',
+    body: 'Dear {first_name}, happy birthday! 🌸 May this new year of your life bring you closer to the Divine, with good health, inner strength and endless grace.',
+    sortOrder: 2,
+  },
+  {
+    templateId: 'TPL_DEVOTEE_BIRTHDAY_3',
+    category: 'DEVOTEE',
+    occasion: 'BIRTHDAY',
+    name: 'Short & warm',
+    body: 'Happy birthday {first_name} ji! 🙏 Praying for your happiness, health and spiritual progress today and always.',
+    sortOrder: 3,
+  },
+  // ── DEVOTEE · ANNIVERSARY ───────────────────────────────────────────
+  {
+    templateId: 'TPL_DEVOTEE_ANNIVERSARY_1',
+    category: 'DEVOTEE',
+    occasion: 'ANNIVERSARY',
+    name: 'Blessed union',
+    body: 'Hare Krishna {name} 🙏\n\nHeartfelt wishes on your wedding anniversary! May the Lord keep your bond strong, your home full of devotion and your hearts full of love.',
+    sortOrder: 1,
+  },
+  {
+    templateId: 'TPL_DEVOTEE_ANNIVERSARY_2',
+    category: 'DEVOTEE',
+    occasion: 'ANNIVERSARY',
+    name: 'Together in service',
+    body: 'Dear {first_name}, happy anniversary! 🌼 May you both continue to grow together in faith, service and happiness for many years to come.',
+    sortOrder: 2,
+  },
+  {
+    templateId: 'TPL_DEVOTEE_ANNIVERSARY_3',
+    category: 'DEVOTEE',
+    occasion: 'ANNIVERSARY',
+    name: 'Short & warm',
+    body: 'Happy wedding anniversary {first_name} ji! 🙏 Praying for a lifetime of togetherness and divine grace for your family.',
+    sortOrder: 3,
+  },
+  // ── GENERAL · BIRTHDAY ──────────────────────────────────────────────
+  {
+    templateId: 'TPL_GENERAL_BIRTHDAY_1',
+    category: 'GENERAL',
+    occasion: 'BIRTHDAY',
+    name: 'Classic wishes',
+    body: 'Happy birthday {name}! 🎉 Wishing you a wonderful year ahead filled with happiness, good health and success.',
+    sortOrder: 1,
+  },
+  {
+    templateId: 'TPL_GENERAL_BIRTHDAY_2',
+    category: 'GENERAL',
+    occasion: 'BIRTHDAY',
+    name: 'Cheerful',
+    body: 'Hey {first_name}! 🎂 Many happy returns of the day. Hope your day is as amazing as you are — have a fantastic celebration!',
+    sortOrder: 2,
+  },
+  {
+    templateId: 'TPL_GENERAL_BIRTHDAY_3',
+    category: 'GENERAL',
+    occasion: 'BIRTHDAY',
+    name: 'Short & sweet',
+    body: 'Happy birthday {first_name}! 🥳 Have a great day and a brilliant year ahead.',
+    sortOrder: 3,
+  },
+  // ── GENERAL · ANNIVERSARY ───────────────────────────────────────────
+  {
+    templateId: 'TPL_GENERAL_ANNIVERSARY_1',
+    category: 'GENERAL',
+    occasion: 'ANNIVERSARY',
+    name: 'Classic wishes',
+    body: 'Happy wedding anniversary {name}! 💐 Wishing you both a lifetime of love, laughter and happiness together.',
+    sortOrder: 1,
+  },
+  {
+    templateId: 'TPL_GENERAL_ANNIVERSARY_2',
+    category: 'GENERAL',
+    occasion: 'ANNIVERSARY',
+    name: 'Heartfelt',
+    body: 'Dear {first_name}, congratulations on your anniversary! ❤️ May your journey together keep getting more beautiful with every passing year.',
+    sortOrder: 2,
+  },
+  {
+    templateId: 'TPL_GENERAL_ANNIVERSARY_3',
+    category: 'GENERAL',
+    occasion: 'ANNIVERSARY',
+    name: 'Short & sweet',
+    body: 'Happy anniversary {first_name}! 🥂 Cheers to many more years of togetherness.',
+    sortOrder: 3,
+  },
+  // ── HELP_DONOR · BIRTHDAY ───────────────────────────────────────────
+  {
+    templateId: 'TPL_HELP_DONOR_BIRTHDAY_1',
+    category: 'HELP_DONOR',
+    occasion: 'BIRTHDAY',
+    name: 'Grateful wishes',
+    body: 'Dear {name},\n\nWishing you a very happy birthday! 🎉 Your generosity has touched so many lives. May the year ahead bring you the same joy you bring to others.',
+    sortOrder: 1,
+  },
+  {
+    templateId: 'TPL_HELP_DONOR_BIRTHDAY_2',
+    category: 'HELP_DONOR',
+    occasion: 'BIRTHDAY',
+    name: 'With thanks',
+    body: 'Happy birthday {first_name} ji! 🌟 Thank you for your kind support and compassion. Wishing you good health, prosperity and happiness always.',
+    sortOrder: 2,
+  },
+  {
+    templateId: 'TPL_HELP_DONOR_BIRTHDAY_3',
+    category: 'HELP_DONOR',
+    occasion: 'BIRTHDAY',
+    name: 'Short & warm',
+    body: 'Happy birthday {first_name}! 🙏 Grateful to have a kind-hearted supporter like you. Have a wonderful day.',
+    sortOrder: 3,
+  },
+  // ── HELP_DONOR · ANNIVERSARY ────────────────────────────────────────
+  {
+    templateId: 'TPL_HELP_DONOR_ANNIVERSARY_1',
+    category: 'HELP_DONOR',
+    occasion: 'ANNIVERSARY',
+    name: 'Grateful wishes',
+    body: 'Dear {name},\n\nHappy wedding anniversary! 💐 Thank you for your continued kindness and support. May your family be blessed with love and happiness always.',
+    sortOrder: 1,
+  },
+  {
+    templateId: 'TPL_HELP_DONOR_ANNIVERSARY_2',
+    category: 'HELP_DONOR',
+    occasion: 'ANNIVERSARY',
+    name: 'With thanks',
+    body: 'Warm anniversary wishes to you, {first_name} ji! ❤️ Your generosity inspires us. Wishing you both many more years of joy together.',
+    sortOrder: 2,
+  },
+  {
+    templateId: 'TPL_HELP_DONOR_ANNIVERSARY_3',
+    category: 'HELP_DONOR',
+    occasion: 'ANNIVERSARY',
+    name: 'Short & warm',
+    body: 'Happy anniversary {first_name}! 🙏 Grateful for your support — wishing you a beautiful year together.',
+    sortOrder: 3,
+  },
+];

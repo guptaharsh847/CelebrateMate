@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local env files (may contain environment-specific values)
+.env
+.env.local
+.env.*.local
+!frontend/.env.example
+!frontend/.env.mock
+
+# Apps Script CLI credentials (Phase 2)
+.clasprc.json
+backend/.clasp.json
+
+.vscode/*
+!.vscode/extensions.json

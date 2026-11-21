@@ -1,0 +1,88 @@
+name: Test & deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Backend tests (Apps Script logic)
+        working-directory: backend
+        run: npm test
+      - name: Install frontend
+        working-directory: frontend
+        run: npm ci
+      - name: Frontend tests
+        working-directory: frontend
+        run: npm test
+      - name: Frontend typecheck
+        working-directory: frontend
+        run: npm run typecheck
+
+  build:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - working-directory: frontend
+        run: npm ci
+      - name: Build
+        working-directory: frontend
+        env:
+          # Public, non-secret identifiers configured as repository *Variables*
+          # (Settings → Secrets and variables → Actions → Variables).
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
+          VITE_ONESIGNAL_APP_ID: ${{ vars.VITE_ONESIGNAL_APP_ID }}
+        run: npm run build
+      - name: Verify PWA output
+        working-directory: frontend/dist
+        run: |
+          test -f index.html && test -f sw.js && test -f manifest.webmanifest
+          test -f icons/icon-192.png && test -f icons/icon-512.png && test -f icons/apple-touch-icon.png
+          grep -q "/${{ github.event.repository.name }}/manifest.webmanifest" index.html
+          ! grep -rl "CON_DEMO\|mock-db" . || (echo "Mock data leaked into the build" && exit 1)
+      - name: Verify service worker (scope, offline shell, no API caching)
+        working-directory: frontend
+        run: node scripts/verify-sw.mjs "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
